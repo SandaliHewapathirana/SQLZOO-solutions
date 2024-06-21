@@ -34,7 +34,7 @@ select *
 from nobel
 where subject= 'literature' and yr between 1980 and 1989
 
--- Only Presidents
+-- 06.Only Presidents
 /* Show all details of the presidential winners:
       Theodore Roosevelt
       Thomas Woodrow Wilson
@@ -44,10 +44,49 @@ SELECT *
 FROM nobel
 WHERE winner IN ('Theodore Roosevelt', 'Thomas Woodrow Wilson', 'Jimmy Carter', 'Barack Obama')
 
--- Show the winners with first name John
+-- 07.Show the winners with first name John
 select winner
 from nobel
 where winner like 'John%'
 
--- Show the year, subject, and name of physics winners for 1980 together with the chemistry winners for 1984.
+-- 08.Show the year, subject, and name of physics winners for 1980 together with the chemistry winners for 1984.
+select *
+from nobel
+where (subject = 'physics' and yr = 1980) or (subject = 'chemistry' and yr = 1984)
+
+-- 09.Show the year, subject, and name of winners for 1980 excluding chemistry and medicine
+select *
+from nobel
+where yr= 1980 and
+subject not in ('chemistry', 'medicine')
+
+--10. Show year, subject, and name of people who won a 'Medicine' prize in an early year (before 1910, not including 1910) together with winners of a 'Literature' prize in a later year (after 2004, including 2004)
+select *
+from nobel
+where subject = 'medicine' and yr < 1910 
+or subject = 'literature' and yr >= 2004 
+
+--11.Find all details of the prize won by PETER GRÜNBERG
+select *
+from nobel
+where winner = 'PETER GRÜNBERG'
+
+--12.Find all details of the prize won by EUGENE O'NEILL
+select * 
+from nobel
+where winner = "EUGENE O'NEILL"
+
+--13.Knights in order
+--List the winners, year and subject where the winner starts with Sir. Show the the most recent first, then by name order.
+select winner, yr, subject
+from nobel
+where winner like 'Sir%'
+order by yr desc, winner asc
+
+--14.The expression subject IN ('chemistry','physics') can be used as a value - it will be 0 or 1.
+-- Show the 1984 winners and subject ordered by subject and winner name; but list chemistry and physics last.
+SELECT winner, subject
+  FROM nobel
+ WHERE yr=1984 
+ ORDER BY subject IN ('physics','chemistry'),subject,winner
 

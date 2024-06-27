@@ -20,3 +20,10 @@ where continent in
 order by name
 
 --Which country has a population that is more than United Kingdom but less than Germany? Show the name and the population.
+select name, population
+from world
+where population > (select population from world where name = 'United Kingdom')
+and population < (select population from world where name = 'Germany')
+
+--Germany (population 80 million) has the largest population of the countries in Europe. Austria (population 8.5 million) has 11% of the population of Germany.
+--Show the name and the population of each country in Europe. Show the population as a percentage of the population of Germany.
